@@ -20,3 +20,44 @@ jl
 
 
 주피터 랩 실행 종료 할 때 컨드롤+C 누르고 y 누르기
+
+---
+About CMD
+1. 가상환경 생성
+   python -m venv myenv
+2. 가상환경 활성화
+   myenv\Scripts\activate
+3. Jupyter Notebook 실행
+   jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
+   -> url(http://127.0.0.1:8888/?token=xxxxxxxx) 나오면 노트북 브라우저에 넣기(http://라즈베리파이IP주소:8888/?token=토큰값)
+
+---
+About AWS
+ 1. Sign in using root user email 로 로그인하기
+
+---
+---
+예상 실습 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
+
+(1) CMD에서 Jupyter 실행
+(2) Jupyter Notebook에서 센서 코드 실행
+(3) Python 내부에서 boto3로 AWS 전송
+(4) DynamoDB Table에 저장
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
