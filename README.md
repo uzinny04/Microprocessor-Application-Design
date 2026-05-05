@@ -30,19 +30,16 @@
     
 3. AWS 연결 설정 (boto3 설정)
     import boto3
-    
     dynamodb = boto3.resource(
         'dynamodb',
         aws_access_key_id='YOUR_ACCESS_KEY',
         aws_secret_access_key='YOUR_SECRET_KEY',
         region_name='ap-northeast-2'
     )
-    
     table = dynamodb.Table('YourTableName')
 
 4. 센서 데이터를 DynamoDB에 저장
     from datetime import datetime
-    
     while True:
         imu.readSensor()
     
