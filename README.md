@@ -1,11 +1,8 @@
 # Microprocessor-Application-Design
-
-CMD 에서 IP 찾는 방법
-
-for /L %i in (1,1,50) do ping 172.20.10.%i -n 1 -w 100
-
 ---
-
+CMD 에서 IP 찾는 방법
+for /L %i in (1,1,50) do ping 172.20.10.%i -n 1 -w 100
+---
 내 컴퓨터의 경우 주피터랩 설치에 충돌이 지속적으로 발생하여 가상 환경 안에서 주피터 랩을 다운받음
 즉, 항상 가상 환경을 통해 접속해야하는 불편함이 존재함으로 
 
@@ -29,12 +26,9 @@ About CMD
 3. Jupyter Notebook 실행
    jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
    -> url(http://127.0.0.1:8888/?token=xxxxxxxx) 나오면 노트북 브라우저에 넣기(http://라즈베리파이IP주소:8888/?token=토큰값)
-
 ---
 About AWS
  1. Sign in using root user email 로 로그인하기
-
----
 ---
 예상 실습 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
 
