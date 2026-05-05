@@ -87,42 +87,73 @@ locale : KR, Asis/Seoul, kr
 ---
 About CMD
 0. IP 바로 찾는 방법 
+    
     for /L %i in (1,1,50) do ping 172.20.10.%i -n 1 -w 100
+    
 1. 원격 접속하기 (SSH 접속)
+
    ssh yj-raspi4@172.20.10.xx
+   
 1-1. 라즈베리파이 기본 준비
+
 (1) 시스템 업데이트
+
     sudo apt update
+    
     sudo apt upgrade -y
+    
 (2) I2C 활성화
+
     sudo raspi-config
+    
     # [Interface Options] -> [I2C] -> [Yes] 선택 후 종료
+
    
     ls /dev/i2c-1
+    
    i2cdetect -y 1
-3. 가상환경 + JupyterLab
+   
+2. 가상환경 + JupyterLab
+
 2-1. 가상환경 생성
+
    python -m venv myenv
+   
 2-2. 가상환경 활성화
+
    source myenv/bin/activate
+   
    -> (myenv) pi@raspberrypi:~ $ 가 뜨면 성공임.
+   
 2-3. 패키지 설치
+
    pip install smbus imusensor boto3 jupyterlab
+   
 2-4. Jupyter Notebook 실행
+
    jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
+   
    -> url(http://127.0.0.1:8888/?token=xxxxxxxx) 나오면 노트북 브라우저에 넣기(http://172.20.10.xx:8888/?token=토큰값)
    
 ---
+
 (이건 아직 못 함) CMD에서 Jupyter 접속하는 방법
+
     j1
+    
 (내 노트북은 Jupyterlab 설치를 할 때, 지속적으로 충돌이 발생하여, 가상환경을 생성 후 그 안에서 주피터랩을 설치함. 즉, 항상 가상 환경을 통해 접속해야하는 불편함이 존재함으로 
+
 echo "alias jl='source ~/myenv/bin/activate && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser'" >> ~/.bashrc
+
 source ~/.bashrc
+
 을 저장하였기에 앞으로는 jl 만 입력하면 바로 Jupyter에 접속됨)
+
 * Jupyterlab 실행을 종료할 때는 ctrl + c 누르고 y 누르기
 
 ---
 About Jypter
+
 1. IMU 코드 (New -> Python Notebook 생성)
     import smbus
     from imusensor.MPU9250 import MPU9250
