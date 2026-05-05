@@ -30,12 +30,77 @@ About CMD
 About AWS
  1. Sign in using root user email 로 로그인하기
 ---
-예상 실습 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
+예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
+1. 라즈베리파이 연결 후 CMD 창에서 가상환경 생성 및 실행, 필수 라이브러리 설치
+python3 -m venv venv
+source venv/bin/activate
 
-(1) CMD에서 Jupyter 실행
-(2) Jupyter Notebook에서 센서 코드 실행
-(3) Python 내부에서 boto3로 AWS 전송
-(4) DynamoDB Table에 저장
+pip install smbus
+pip install imusensor
+pip install boto3
+
+2. 라즈베리파이에서 실행하는 IMU 센서 데이터 읽기 코드
+import smbus
+from imusensor.MPU9250 import MPU9250
+from time import sleep
+
+bus = smbus.SMBus(1)
+address = 0x68
+
+imu = MPU9250.MPU9250(bus, address)
+imu.begin()
+
+while True:
+    imu.readSensor()
+
+    print("Temp:", imu.Temp)
+    print("Gyro:", imu.GyroVals)
+
+    sleep(1)
+    
+3. AWS 연결 설정 (boto3 설정)
+import boto3
+
+dynamodb = boto3.resource(
+    'dynamodb',
+    aws_access_key_id='YOUR_ACCESS_KEY',
+    aws_secret_access_key='YOUR_SECRET_KEY',
+    region_name='ap-northeast-2'
+)
+
+table = dynamodb.Table('YourTableName')
+
+4. 센서 데이터를 DynamoDB에 저장
+from datetime import datetime
+
+while True:
+    imu.readSensor()
+
+    data = [
+        {"parameter": "T", "value": imu.Temp},
+        {"parameter": "Gx", "value": imu.GyroVals[0]},
+        {"parameter": "Gy", "value": imu.GyroVals[1]},
+        {"parameter": "Gz", "value": imu.GyroVals[2]},
+    ]
+
+    for d in data:
+        table.put_item(
+            Item={
+                'parameter': d["parameter"],
+                'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'value': str(d["value"])
+            }
+        )
+
+    sleep(1)
+    
+5. 실행 순서 정리
+(1) 가상환경 실행
+source venv/bin/activate
+(2) 코드 실행
+python sensor_to_aws.py
+(3) AWS 콘솔 접속
+DynamoDB → Tables → 데이터 확인
 
 
 
