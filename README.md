@@ -1,5 +1,4 @@
 # Microprocessor-Application-Design
-Microprocessor Application Design
 
 CMD 에서 IP 찾는 방법
 
