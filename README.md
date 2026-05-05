@@ -39,7 +39,8 @@
     table = dynamodb.Table('YourTableName')
 
 4. 센서 데이터를 DynamoDB에 저장
-    from datetime import datetime
+
+   from datetime import datetime
     while True:
         imu.readSensor()
     
@@ -61,7 +62,7 @@
     
         sleep(1)
     
-5. 실행 순서 정리
+6. 실행 순서 정리
 (1) 가상환경 실행
     source venv/bin/activate
 (2) 코드 실행
