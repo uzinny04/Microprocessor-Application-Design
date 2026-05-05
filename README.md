@@ -1,5 +1,6 @@
 **MIdterm**
 
+
 예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
 1. 라즈베리파이 연결 후 CMD 창에서 가상환경 생성 및 실행, 필수 라이브러리 설치
     python3 -m venv venv
@@ -72,10 +73,15 @@ DynamoDB → Tables → 데이터 확인
 
 ---
 About Raspbeery Pi Imager
+
 운영체제 : 32-bit 
+
 hostname : yj-raspi4
+
 password : ********
+
 locale : KR, Asis/Seoul, kr
+
 설치 완료!
 
 ---
