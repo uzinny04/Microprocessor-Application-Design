@@ -3,14 +3,18 @@
 
 예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
 1. 라즈베리파이 연결 후 CMD 창에서 가상환경 생성 및 실행, 필수 라이브러리 설치
-    python3 -m venv venv
-    source venv/bin/activate
-    
-    pip install smbus
-    pip install imusensor
-    pip install boto3
+'''
+python3 -m venv venv
+source venv/bin/activate
+'''    
 
-2. 라즈베리파이에서 실행하는 IMU 센서 데이터 읽기 코드
+'''
+pip install smbus
+pip install imusensor
+pip install boto3
+'''
+
+3. 라즈베리파이에서 실행하는 IMU 센서 데이터 읽기 코드
     import smbus
     from imusensor.MPU9250 import MPU9250
     import boto3
