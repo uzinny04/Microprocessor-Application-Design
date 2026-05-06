@@ -2,62 +2,100 @@
 
 
 예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
+
 1. 라즈베리파이 연결 후 CMD 창에서 가상환경 생성 및 실행, 필수 라이브러리 설치
+   
 '''
+
 python3 -m venv venv
+
 source venv/bin/activate
+
 '''    
 
 '''
+
 pip install smbus
+
 pip install imusensor
+
 pip install boto3
+
 '''
 
 3. 라즈베리파이에서 실행하는 IMU 센서 데이터 읽기 코드
+   
     import smbus
+   
     from imusensor.MPU9250 import MPU9250
+   
     import boto3
+   
     from datetime import datetime
+   
     import time
     
     # 1. IMU 센서 설정
+   
     bus = smbus.SMBus(1)
+   
     address = 0x68
+   
     imu = MPU9250.MPU9250(bus, address)
+   
     imu.begin()
     
     # 2. AWS DynamoDB 연결 설정
+   
     dynamodb = boto3.resource(
+   
         'dynamodb',
+   
         aws_access_key_id='YOUR_ACCESS_KEY',      # 본인 키로 수정
+   
         aws_secret_access_key='YOUR_SECRET_KEY',  # 본인 키로 수정
+   
         region_name='ap-northeast-2'
+   
     )
+   
     table = dynamodb.Table('midterm') # 방금 만든 테이블 이름
     
     print("데이터 전송을 시작합니다... (중지하려면 주피터의 ■ 버튼 클릭)")
     
     # 3. 무한 루프를 돌며 데이터 전송
     try:
+   
         while True:
+   
             imu.readSensor()
+   
             now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # 전송할 데이터 구조 (이미지와 동일)
             sensor_items = [
+   
                 {"p": "T", "v": imu.Temp},
+   
                 {"p": "Gx", "v": imu.GyroVals[0]},
+   
                 {"p": "Gy", "v": imu.GyroVals[1]},
+   
                 {"p": "Gz", "v": imu.GyroVals[2]}
             ]
             
             for item in sensor_items:
+   
                 table.put_item(
+   
                     Item={
+   
                         'parameter': item["p"],
+   
                         'Time': now,
+   
                         'value': str(item["v"])
+   
                     }
                 )
             
@@ -67,7 +105,7 @@ pip install boto3
     except KeyboardInterrupt:
         print("전송이 중단되었습니다.")
     
-4. AWS 연결 설정 (boto3 설정)
+5. AWS 연결 설정 (boto3 설정)
     import boto3
     dynamodb = boto3.resource(
         'dynamodb',
@@ -77,7 +115,7 @@ pip install boto3
     )
     table = dynamodb.Table('YourTableName')
 
-5. 센서 데이터를 DynamoDB에 저장
+6. 센서 데이터를 DynamoDB에 저장
 
    from datetime import datetime
     while True:
@@ -101,7 +139,7 @@ pip install boto3
     
         sleep(1)
     
-6. 실행 순서 정리
+7. 실행 순서 정리
 
 (1) 가상환경 실행
 
