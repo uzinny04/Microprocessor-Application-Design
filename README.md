@@ -102,12 +102,18 @@ pip install boto3
         sleep(1)
     
 6. 실행 순서 정리
+
 (1) 가상환경 실행
+
     source venv/bin/activate
+
 (2) 코드 실행
+
     python sensor_to_aws.py
+
 (3) AWS 콘솔 접속
-DynamoDB → Tables → 데이터 확인
+
+    DynamoDB → Tables → 데이터 확인
 
 ---
 About Raspbeery Pi Imager
@@ -124,6 +130,7 @@ locale : KR, Asis/Seoul, kr
 
 ---
 About CMD
+
 0. IP 바로 찾는 방법 
     
     for /L %i in (1,1,50) do ping 172.20.10.%i -n 1 -w 100
