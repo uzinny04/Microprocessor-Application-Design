@@ -182,6 +182,39 @@ About CMD
    
 ---
 
+주피터랩 설치
+
+sudo nano /etc/apt/sources.list
+
+(최하단의 # 제거 (주석 해제), 저장 컨트롤 씨 -> 엔터 -> 졸료 컨트롤 엑스)
+
+
+sudo raspi-config
+
+6번 -> A1 선택
+
+
+sudo apt-get update
+
+
+sudo apt-get update
+
+-> Y 입력
+
+
+sudo pip install jupyterlab
+
+
+jupyter lab --generate-config
+
+
+cd ~/.jupyter/
+
+sudo nano jupyter_lab_config.py
+
+
+---
+
 (이건 아직 못 함) CMD에서 Jupyter 접속하는 방법
 
     j1
