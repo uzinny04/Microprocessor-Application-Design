@@ -71,6 +71,8 @@ $ python3 rpi_web_streming.py
 
 (web 브라우저에서는 http://197.168.xx.yy:8000으로 접속하기)
 
+---
+
 **MIdterm**
 예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
 
