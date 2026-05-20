@@ -1,16 +1,25 @@
 2026-05-20 라즈베리 파이 카메라
 
 $ sudo rasp-config (I1 선택)
+
 $ sudo reboor
+
 $ vegencmd get_camera 
+
 $ raspistill 0o image.jpg
+
 $ ifconfig   (ip 확인)
+
 $ sudo apt-get update
+
 $ sudo apt-get upgrade
+
 $ sudo apt-get install build-essential cmake libatlas-base-dev --upgrade -verbose
+
 $ sudo pip3 install opencv-python==4.5.3.50
 
 --opencv_camera.py--
+
 import cv2
 
 class VideoCamera(object): 
@@ -27,6 +36,7 @@ class VideoCamera(object):
         return jpeg.tobytes()
 
 --rpi_web_streaming.py--
+
 import time
 from opencv_camera import VideoCamera 
 from bottle import route, run, response
@@ -57,7 +67,8 @@ def video_feed():
 
 run(host='0.0.0.0', port=8000, reloader=True)
 
-python3 rpi_web_streming.py
+$ python3 rpi_web_streming.py
+
 (web 브라우저에서는 http://197.168.xx.yy:8000으로 접속하기)
 
 **MIdterm**
