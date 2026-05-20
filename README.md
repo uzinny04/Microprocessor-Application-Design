@@ -1,3 +1,74 @@
+2026-05-20 라즈베리 파이 카메라
+
+sudo rasp-config
+I1 선택
+
+sudo reboor
+
+vegencmd get_camera 
+
+raspistill 0o image.jpg
+
+ifconfig   (ip 확인)
+
+sudo apt-get update
+
+sudo apt-get upgrade
+
+sudo apt-get install build-essential cmake libatlas-base-dev --upgrade -verbose
+
+sudo pip3 install opencv-python==4.5.3.50
+
+--opencv_camera.py--
+import cv2
+
+class VideoCamera(object): 
+    def __init__(self):
+        self.video = cv2.VideoCapture(0)
+        # Using OpenCV to capture from device 0
+
+    def __del__(self): 
+        self.video.release()
+
+    def get_frame(self):
+        success, image = self.video.read()
+        ret, jpeg = cv2.imencode('.jpg', image)
+        return jpeg.tobytes()
+
+--rpi_web_streaming.py--
+import time
+from opencv_camera import VideoCamera 
+from bottle import route, run, response
+
+@route('/') 
+def index():
+    return '''
+    <html>
+        <head>
+            <title>Video Streaming Demonstration</title>
+        </head>
+        <body>
+            <h1>Video Streaming Demonstration</h1>
+            <img id="bg" class="img-thumbnail" src="/video_feed"> 
+        </body>
+    </html>
+    '''
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        
+@route('/video_feed') 
+def video_feed():
+    response.content_type = 'multipart/x-mixed-replace; boundary=frame'
+    return gen(VideoCamera())
+
+run(host='0.0.0.0', port=8000, reloader=True)
+
+python3 rpi_web_streming.py
+(web 브라우저에서는 http://197.168.xx.yy:8000으로 접속하기)
+
 **MIdterm**
 
 
