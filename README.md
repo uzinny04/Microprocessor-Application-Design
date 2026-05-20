@@ -1,23 +1,14 @@
 2026-05-20 라즈베리 파이 카메라
 
-sudo rasp-config
-I1 선택
-
-sudo reboor
-
-vegencmd get_camera 
-
-raspistill 0o image.jpg
-
-ifconfig   (ip 확인)
-
-sudo apt-get update
-
-sudo apt-get upgrade
-
-sudo apt-get install build-essential cmake libatlas-base-dev --upgrade -verbose
-
-sudo pip3 install opencv-python==4.5.3.50
+$ sudo rasp-config (I1 선택)
+$ sudo reboor
+$ vegencmd get_camera 
+$ raspistill 0o image.jpg
+$ ifconfig   (ip 확인)
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install build-essential cmake libatlas-base-dev --upgrade -verbose
+$ sudo pip3 install opencv-python==4.5.3.50
 
 --opencv_camera.py--
 import cv2
@@ -70,8 +61,6 @@ python3 rpi_web_streming.py
 (web 브라우저에서는 http://197.168.xx.yy:8000으로 접속하기)
 
 **MIdterm**
-
-
 예상 : MPU9250 IMU Sensor -> smbus(I2C) -> Jupyter -> AWS 저장 
 
 1. 라즈베리파이 연결 후 CMD 창에서 가상환경 생성 및 실행, 필수 라이브러리 설치
