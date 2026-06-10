@@ -1,5 +1,11 @@
 y*raspi -> wifi
+
 y*raspi44 -> password
+
+
+y*-raspi4 -> raspi
+
+y*raspi4 -> passwoerd
 
 
 
