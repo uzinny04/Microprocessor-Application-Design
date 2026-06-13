@@ -8,6 +8,9 @@ y*-raspi4 -> raspi
 y*raspi4 -> password
 
 
+-
+-
+-
 
 
 2026-05-20 라즈베리 파이 카메라
